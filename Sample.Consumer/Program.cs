@@ -50,8 +50,6 @@ namespace Sample.Consumer
 
                         Log.Information("Starting ...");
                     })
-                    // Register Serilog as the logging provider
-                    //.UseSerilog(Log.Logger, dispose: false)
                     .ConfigureServices((context, services) =>
                     {
                         // Bind configuration sections to strongly-typed settings
@@ -63,9 +61,9 @@ namespace Sample.Consumer
 
                         // Register application services
                         services.AddSingleton<Serilog.ILogger>(sp => Log.Logger);
-                        services.AddSingleton<ITableService, UsersService>();
-                        services.AddSingleton<SampleServiceConsumer>();
-                        services.AddSingleton<TableRouter>();
+                        services.AddScoped<ITableService, UsersService>();
+                        services.AddScoped<TableRouter>();
+                        services.AddScoped<SampleServiceConsumer>();
 
                         // Register the background worker that runs the consumer
                         services.AddHostedService<ConsumerWorker>();

@@ -3,7 +3,7 @@
     "Sample.Consumer": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "Development"
       }
     },
     "Container (Dockerfile)": {
