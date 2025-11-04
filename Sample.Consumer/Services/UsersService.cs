@@ -17,18 +17,11 @@ namespace Sample.Consumer.Services
     /// in <see cref="GenericTableService{TContext, TEntity}"/>, while associating them with the logical table name <c>"Users"</c>.
     /// </para>
     /// </remarks>
-    public class UsersService : GenericTableService<SampleDbContext, User>
+    /// <param name="context">
+    /// The database context used to access the <c>Users</c> table.
+    /// Typically injected by dependency injection.
+    /// </param>
+    public class UsersService(SampleDbContext context) : GenericTableService<SampleDbContext, User>(context, "Users")
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UsersService"/> class.
-        /// </summary>
-        /// <param name="context">
-        /// The database context used to access the <c>Users</c> table.
-        /// Typically injected by dependency injection.
-        /// </param>
-        public UsersService(SampleDbContext context)
-            : base(context, "Users")
-        {
-        }
     }
 }

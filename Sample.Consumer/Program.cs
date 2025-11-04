@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Sample.Consumer.Configuration;
-using Sample.Consumer.Services;
 using Sample.Database.Context;
 using Serilog;
 
@@ -60,8 +59,13 @@ namespace Sample.Consumer
 
                         // Register application services
                         services.AddSingleton<Serilog.ILogger>(sp => Log.Logger);
-                        services.AddScoped<ITableService, UsersService>();
-                        services.AddScoped<TableRouter>();
+
+                        services.Scan(scan => scan
+                            .FromAssembliesOf(typeof(AppSettings))
+                            .AddClasses(c => c.AssignableTo<IBusService>())
+                            .AsImplementedInterfaces()
+                            .WithScopedLifetime());
+                        services.AddScoped<BusRouter>();
                         services.AddScoped<SampleServiceConsumer>();
 
                         // Register the background worker that runs the consumer
