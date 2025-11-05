@@ -1,9 +1,9 @@
 ﻿using GamersCommunity.Core.Tests;
-using Sample.Consumer.Services;
+using Sample.Consumer.Services.Data;
 using Sample.Database.Context;
 using Sample.Database.Models;
 
-namespace Sample.Tests.Users
+namespace Sample.Tests.Services.Data
 {
     public class UsersTests : GenericServiceTests<SampleDbContext, UsersService, User>, IClassFixture<TestsFixture>
     {

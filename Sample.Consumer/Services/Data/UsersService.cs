@@ -2,7 +2,7 @@
 using Sample.Database.Context;
 using Sample.Database.Models;
 
-namespace Sample.Consumer.Services
+namespace Sample.Consumer.Services.Data
 {
     /// <summary>
     /// Specialized table service for handling <see cref="User"/> entities.

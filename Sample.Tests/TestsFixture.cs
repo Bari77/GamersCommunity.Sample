@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sample.Consumer.Services;
+using Sample.Consumer.Services.Data;
 using Sample.Database.Context;
 
 namespace Sample.Tests
