@@ -7,19 +7,27 @@ namespace Sample.Tests.Services.Data
 {
     public class UsersTests(TestsDataFixture fixture) : GenericDataServiceTests<SampleDbContext, UsersService, User>, IClassFixture<TestsDataFixture>
     {
-        protected override UsersService CreateService() => fixture.CreateUsersService();
+        protected override UsersService CreateService()
+        {
+            var ctx = fixture.CreateContext();
+            ctx.Users.AddRange(GetFakeData());
+            ctx.SaveChanges();
+
+            fixture.SeedFullDataset(ctx);
+
+            return new UsersService(ctx);
+        }
 
         protected override List<User> GetFakeData()
         {
             return [];
         }
 
-        protected override User GetNewEntity()
+        protected override User GetNewEntity() => new()
         {
-            return new User
-            {
-                Name = "New user"
-            };
-        }
+            Name = "New user",
+            CreationDate = DateTime.Now,
+            ModificationDate = DateTime.Now,
+        };
     }
 }

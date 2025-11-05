@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sample.Consumer.Services.Data;
 using Sample.Database.Context;
 using Sample.Database.Models;
 
@@ -20,17 +19,6 @@ namespace Sample.Tests
         }
 
         /// <summary>
-        /// Creates a fully functional <see cref="UsersService"/> with all required dependencies and seeded data.
-        /// </summary>
-        public UsersService CreateUsersService()
-        {
-            var ctx = CreateContext();
-            SeedFullDataset(ctx);
-
-            return new UsersService(ctx);
-        }
-
-        /// <summary>
         /// Seeds the full test dataset required across all services (relations, dependencies, etc.).
         /// </summary>
         public void SeedFullDataset(SampleDbContext ctx)
@@ -38,8 +26,18 @@ namespace Sample.Tests
             if (!ctx.Users.Any())
             {
                 ctx.Users.AddRange(
-                    new User { Id = 1, Name = "Jane Doe", CreationDate = DateTime.Now, ModificationDate = DateTime.Now },
-                    new User { Id = 2, Name = "John Doe", CreationDate = DateTime.Now, ModificationDate = DateTime.Now }
+                    new User
+                    {
+                        Name = "User A",
+                        CreationDate = DateTime.Now,
+                        ModificationDate = DateTime.Now
+                    },
+                    new User
+                    {
+                        Name = "User B",
+                        CreationDate = DateTime.Now,
+                        ModificationDate = DateTime.Now
+                    }
                 );
             }
 
