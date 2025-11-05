@@ -5,31 +5,13 @@ using Sample.Database.Models;
 
 namespace Sample.Tests.Services.Data
 {
-    public class UsersTests : GenericServiceTests<SampleDbContext, UsersService, User>, IClassFixture<TestsFixture>
+    public class UsersTests(TestsDataFixture fixture) : GenericDataServiceTests<SampleDbContext, UsersService, User>, IClassFixture<TestsDataFixture>
     {
-        public UsersTests(TestsFixture fixture) : base(fixture._usersService)
-        {
-            fixture._testDbContext.AddRange(GetFakeData());
-            fixture._testDbContext.SaveChanges();
-        }
+        protected override UsersService CreateService() => fixture.CreateUsersService();
 
         protected override List<User> GetFakeData()
         {
-            return
-            [
-                new() {
-                    Id = 1,
-                    CreationDate = DateTime.Now,
-                    ModificationDate = DateTime.Now,
-                    Name = "Jane Doe",
-                },
-                new() {
-                    Id = 2,
-                    CreationDate = DateTime.Now,
-                    ModificationDate = DateTime.Now,
-                    Name = "John Doe",
-                },
-            ];
+            return [];
         }
 
         protected override User GetNewEntity()
