@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Sample.Consumer.Configuration;
+using Sample.Consumer.Services.Infra;
 using Sample.Database.Context;
 using Serilog;
 
@@ -65,6 +66,7 @@ namespace Sample.Consumer
                             .AddClasses(c => c.AssignableTo<IBusService>())
                             .AsImplementedInterfaces()
                             .WithScopedLifetime());
+                        services.AddScoped<HealthService>();
                         services.AddScoped<BusRouter>();
                         services.AddScoped<SampleServiceConsumer>();
 
